@@ -30,7 +30,7 @@ module.exports=(sequlize,DataTypes)=>{
             type:DataTypes.TEXT,
             allowNull:false
         },
-        user_id:{
+        form_id:{
             type:DataTypes.STRING,
             isrequired:true
         }

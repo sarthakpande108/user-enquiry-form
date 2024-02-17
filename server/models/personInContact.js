@@ -12,7 +12,7 @@ module.exports=(sequelize,DataTypes)=>{
             type:DataTypes.STRING,
             isrequired:true
         },
-        user_id:{
+        form_id:{
             type:DataTypes.STRING,
             isrequired:true
         }

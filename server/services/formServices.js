@@ -1,5 +1,5 @@
 const db=require("../models");
-const User=db.user;
+const Form=db.form;
 const ProjectDetails=db.ProjectDetails;
 const ExpertProfileReq=db.ExpertProfileReq;
 const personInContact=db.personInContact;
@@ -9,15 +9,15 @@ const workMode=db.work_mode;
 // creating form
 exports.createForm=async(data)=>{
 try{
-    const dataToSend = await User.create(data);
+    const dataToSend = await Form.create(data);
     return dataToSend;
 }catch(error){
-    throw new Error("erro adding form",error.message);
+    throw new Error("error adding form",error.message);
 }}
 //getting all forms in allforms section
 exports.getForms=async()=>{
     try{
-        const data=await User.findAll({
+        const data=await Form.findAll({
             include:[
                 ProjectDetails,
                 ExpertProfileReq,
@@ -34,9 +34,9 @@ exports.getForms=async()=>{
 }};
 
 // getting form by ids for indivisual access
-exports.getFormsbyId=async (user_id)=>{
+exports.getFormsbyId=async (form_id)=>{
 try{
-    const data=await User.findOne({
+    const data=await Form.findOne({
         include:[
             ProjectDetails,
             ExpertProfileReq,
@@ -45,7 +45,7 @@ try{
             workMode
         ],
         where:{
-            id:user_id,
+            id:form_id,
         }
     })
     if (!data) return false;
@@ -60,13 +60,13 @@ exports.addCompanyInformation=async(data)=>{
     try{
         const findExisting = await companyInformation.findOne({
             where: {
-              user_id: data.user_id,
+              form_id: data.form_id,
             },
           });
           if(findExisting){
             await companyInformation.update(data, {
                 where: {
-                  user_id: data.user_id,
+                  form_id: data.form_id,
                 },
               })
               return false;
@@ -84,13 +84,13 @@ exports.addPersonInContact=async(data)=>{
 
         const findExisting = await personInContact.findOne({
             where: {
-              user_id: data.user_id,
+              form_id: data.form_id,
             },
           });
           if(findExisting){
             await personInContact.update(data, {
                 where: {
-                  user_id: data.user_id,
+                  form_id: data.form_id,
                 },
               })
               return false;
@@ -108,13 +108,13 @@ exports.addProjectDetails=async(data)=>{
     try{
         const findExisting = await ProjectDetails.findOne({
             where: {
-              user_id: data.user_id,
+              form_id: data.form_id,
             },
           });
           if(findExisting){
             await ProjectDetails.update(data, {
                 where: {
-                  user_id: data.user_id,
+                  form_id: data.form_id,
                 },
               })
               return false;
@@ -131,13 +131,13 @@ exports.addExpertProfileReq=async(data)=>{
     try{
         const findExisting = await ExpertProfileReq.findOne({
             where: {
-              user_id: data.user_id,
+              form_id: data.form_id,
             },
           });
           if (findExisting) {
             await ExpertProfileReq.update(data, {
               where: {
-                user_id: data.user_id,
+                form_id: data.form_id,
               },
             })
             return false;
@@ -154,13 +154,13 @@ exports.addWorkMode=async(data)=>{
     try{
         const findExisting = await workMode.findOne({
             where: {
-              user_id: data.user_id,
+              form_id: data.form_id,
             },
           });
           if (findExisting) {
             await workMode.update(data, {
               where: {
-                user_id: data.user_id,
+                form_id: data.form_id,
               },
             })
             return false;
@@ -176,96 +176,7 @@ exports.addWorkMode=async(data)=>{
 
 
 //delete
-exports.deleteCompanyInformation=async(data)=>{
-    try{
-        const findExisingdata=await companyInformation.findOne({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-      if(findExisingdata){
-        await companyInformation.destroy({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-        return true;
-      }
-       return false;
-    }catch(error){
-        console.log("error in deleting the company information")
-    }
-}
 
-exports.deleteExpertProfileReq=async(data)=>{
-    try{
-        const findExisingdata=await ExpertProfileReq.findOne({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-      if(findExisingdata){
-        await ExpertProfileReq.destroy({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-        return true;
-      }
-       return false;
-    }catch(error){
-        console.log("error in deleting the expert profile requirements")
-    }
-}
-exports.deletepersonInContact=async(data)=>{
-    try{
-        const findExisingdata=await personInContact.findOne({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-      if(findExisingdata){
-        await personInContact.destroy({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-        return true;
-      }
-       return false;
-    }catch(error){
-        console.log("error in deleting the person in contact")
-    }
-}
-
-exports.deleteProjectDetails=async(data)=>{
-    try{
-        const findExisingdata=await ProjectDetails.findOne({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-      if(findExisingdata){
-        await ProjectDetails.destroy({
-            where:{
-                user_id:data.user_id,
-                id:data.id
-            }
-        })
-        return true;
-      }
-       return false;
-    }catch(error){
-        console.log("error in deleting the  project details")
-    }
-}
 
 
 //updating
@@ -273,14 +184,14 @@ exports.updateCompanyInformation=async(data)=>{
     try{
         const findExisingdata=await companyInformation.findOne({
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
       if(findExisingdata){
         await companyInformation.update(data.data,{
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
@@ -296,14 +207,14 @@ exports.updateExpertProfileReq=async(data)=>{
     try{
         const findExisingdata=await ExpertProfileReq.findOne({
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
       if(findExisingdata){
         await ExpertProfileReq.update(data.data,{
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
@@ -319,14 +230,14 @@ exports.updatePersonInContact=async(data)=>{
     try{
         const findExisingdata=await personInContact.findOne({
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
       if(findExisingdata){
         await personInContact.update(data.data,{
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
@@ -343,14 +254,14 @@ exports.updateProjectDetails=async(data)=>{
     try{
         const findExisingdata=await ProjectDetails.findOne({
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
       if(findExisingdata){
         await ProjectDetails.update(data.data,{
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
@@ -367,14 +278,14 @@ exports.updateWorkMode=async(data)=>{
     try{
         const findExisingdata=await workMode.findOne({
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })
       if(findExisingdata){
         await workMode.update(data.data,{
             where:{
-                user_id:data.user_id,
+                form_id:data.form_id,
                 id:data.id
             }
         })

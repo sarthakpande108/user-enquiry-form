@@ -21,8 +21,8 @@ exports.createForm = async (req, res) => {
 
 exports.getFormsbyId = async (req, res) => {
   try {
-    const { user_id } = req.params;
-    const data = await formService.getFormsbyId(user_id);
+    const { form_id } = req.params;
+    const data = await formService.getFormsbyId(form_id);
     if (data != false) {
       buildResponse(res, 200, {
         error: false,
@@ -78,8 +78,8 @@ exports.getForms = async (req, res) => {
 exports.addprojectDetails=async(req,res)=>{
       try{
         const dataToSend=req.body;
-        const {user_id}=req.params;
-        dataToSend.user_id=user_id;
+        const {form_id}=req.params;
+        dataToSend.form_id=form_id;
 
         const data=await formService.addProjectDetails(dataToSend);
         if (data != false) {
@@ -111,8 +111,8 @@ exports.addprojectDetails=async(req,res)=>{
 exports.addpersonalInContact=async(req,res)=>{
     try{
         const dataToSend=req.body;
-        const {user_id}=req.params;
-        dataToSend.user_id=user_id;
+        const {form_id}=req.params;
+        dataToSend.form_id=form_id;
 
        const data=await formService.addPersonInContact(dataToSend);
        if (data != false) {
@@ -144,8 +144,8 @@ exports.addpersonalInContact=async(req,res)=>{
 exports.addExpertProfileReq=async(req,res)=>{
     try{
         const dataToSend=req.body;
-        const {user_id}=req.params;
-        dataToSend.user_id=user_id;
+        const {form_id}=req.params;
+        dataToSend.form_id=form_id;
         if (dataToSend.tools_requirement) {
             dataToSend.tools_requirement = JSON.stringify(dataToSend.tools_requirement);
         }
@@ -174,8 +174,8 @@ exports.addExpertProfileReq=async(req,res)=>{
 exports.addcompanyInformation=async(req,res)=>{
     try{
         const dataToSend=req.body;
-        const {user_id}=req.params;
-        dataToSend.user_id=user_id;
+        const {form_id}=req.params;
+        dataToSend.form_id=form_id;
 
         const data= await formService.addCompanyInformation(dataToSend);
         if(data!=false){
@@ -206,8 +206,8 @@ exports.addcompanyInformation=async(req,res)=>{
 exports.addWorkMode=async(req,res)=>{
     try{
         const dataToSend=req.body;
-        const {user_id}=req.params;
-        dataToSend.user_id=user_id;
+        const {form_id}=req.params;
+        dataToSend.form_id=form_id;
 
         const data= await formService.addWorkMode(dataToSend);
         if(data!=false){
@@ -234,146 +234,17 @@ exports.addWorkMode=async(req,res)=>{
     }
 }
 
-//delete
 
-exports.deleteProjectDetails=async(req,res)=>{
-    try{
-        const {user_id,id}=req.params;
-        const dataToSend={
-            user_id:user_id,
-            id:id 
-        }
-        const data=await formService.deleteProjectDetails(dataToSend);
-
-        if(data!=false){
-            buildResponse(res,200,{
-                error:false,
-                message:"project details deleted successfully",
-                data:data
-            })
-        }else{
-            buildResponse(res,200,{
-                error:true,
-                message:"unable to delete data",
-                data:""
-            })
-        }
-
-    }catch(error){
-        buildResponse(res,500,{
-            error:true,
-            message:"internal server error:"+error.message,
-            data:""
-        })
-    }
-
-}
-exports.deletecompanyInformation=async(req,res)=>{
-    try{
-        const {user_id,id}=req.params;
-        const dataToSend={
-            user_id:user_id,
-            id:id 
-        }
-        const data=await formService.deleteCompanyInformation(dataToSend);
-
-        if(data!=false){
-            buildResponse(res,200,{
-                error:false,
-                message:"company infomation deleted successfully",
-                data:data
-            })
-        }else{
-            buildResponse(res,200,{
-                error:true,
-                message:"unable to delete data",
-                data:""
-            })
-        }
-
-    }catch(error){
-        buildResponse(res,500,{
-            error:true,
-            message:"internal server error:"+error.message,
-            data:""
-        })
-    }
-
-}
-exports.deleteExpertProfileReq=async(req,res)=>{
-    try{
-        const {user_id,id}=req.params;
-        const dataToSend={
-            user_id:user_id,
-            id:id 
-        }
-        const data=await formService.deleteExpertProfileReq(dataToSend);
-
-        if(data!=false){
-            buildResponse(res,200,{
-                error:false,
-                message:"expert profile  requirment deleted successfully",
-                data:data
-            })
-        }else{
-            buildResponse(res,200,{
-                error:true,
-                message:"unable to delete data",
-                data:""
-            })
-        }
-
-    }catch(error){
-        buildResponse(res,500,{
-            error:true,
-            message:"internal server error:"+error.message,
-            data:""
-        })
-    }
-
-}
-exports.deletepersonInContact=async(req,res)=>{
-    try{
-
-        const {user_id,id}=req.params;
-        const dataToSend={
-            user_id:user_id,
-            id:id 
-        }
-        const data=await formService.deletepersonInContact(dataToSend);
-
-        if(data!=false){
-            buildResponse(res,200,{
-                error:false,
-                message:"person in contact deleted successfully",
-                data:data
-            })
-        }else{
-            buildResponse(res,200,{
-                error:true,
-                message:"unable to delete data",
-                data:""
-            })
-        }
-    }catch(error){
-        buildResponse(res,500,{
-            error:true,
-            message:"internal server error:"+error.message,
-            data:""
-        })
-    }
-
-}
 
 //update
 
 exports.updateProjectDetails=async(req,res)=>{
 try{
-    const { user_id, id } = req.params;        
+    const { form_id, id } = req.params;        
         const Data = req.body;
         const dataToSend = {
             data: Data,
-            user_id:user_id,
+            form_id:form_id,
             id: id
         }
         const data = await formService.updateProjectDetails(dataToSend);
@@ -404,12 +275,12 @@ catch(error){
 
 exports.updatecompanyInformation=async(req,res)=>{
     try{
-        const { user_id, id } = req.params;        
+        const { form_id, id } = req.params;        
         const Data = req.body;
 
         const dataToSend = {
             data: Data,
-            user_id:user_id,
+            form_id:form_id,
             id: id
         }
         const data = await formService.updateCompanyInformation(dataToSend);
@@ -440,11 +311,11 @@ exports.updatecompanyInformation=async(req,res)=>{
     }
     exports.updateExpertProfileReq=async(req,res)=>{
         try{
-            const {user_id,id}=req.params;
+            const {form_id,id}=req.params;
             const Data=req.body;
             const dataToSend={
                 data:Data,
-                user_id : user_id,
+                form_id : form_id,
                 id:id
             }
             const data=await formService.updateExpertProfileReq(dataToSend);
@@ -475,12 +346,12 @@ exports.updatecompanyInformation=async(req,res)=>{
 
         exports.updatepersonInContact=async(req,res)=>{
             try{
-                const {user_id,id}=req.params;
+                const {form_id,id}=req.params;
                 const Data=req.body;
                 
             const dataToSend={
                 data:Data,
-                user_id:user_id,
+                form_id:form_id,
                 id:id
             }
             const data=await formService.updatePersonInContact(dataToSend);
@@ -510,12 +381,12 @@ exports.updatecompanyInformation=async(req,res)=>{
 
             exports.updateWorkMode=async(req,res)=>{
                 try{
-                    const {user_id,id}=req.params;
+                    const {form_id,id}=req.params;
                     const Data=req.body;
                     
                 const dataToSend={
                     data:Data,
-                    user_id:user_id,
+                    form_id:form_id,
                     id:id
                 }
                 const data=await formService.updateWorkMode(dataToSend);

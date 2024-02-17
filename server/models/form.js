@@ -1,5 +1,5 @@
 module.exports=(sequelize,Datatypes)=>{
-    const user=sequelize.define("user",{
+    const form=sequelize.define("form",{
         name:{
             type:Datatypes.STRING,
             isrequired:true
@@ -9,5 +9,5 @@ module.exports=(sequelize,Datatypes)=>{
             isrequired:true
         }
     })
-    return user;
+    return form;
 }

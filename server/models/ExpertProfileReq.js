@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull:true
 
         },
-        user_id: {
+        form_id: {
             type: DataTypes.STRING,
             allowNull: false
         }

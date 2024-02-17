@@ -4,7 +4,7 @@ module.exports=(sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         isrequired:true
       },
-      domain:{
+      sector:{
         type:DataTypes.STRING,
         isrequired:true,
       },
@@ -16,7 +16,7 @@ module.exports=(sequelize,DataTypes)=>{
         type:DataTypes.STRING,
         isrequired:true
       },
-        user_id:{
+        form_id:{
             type:DataTypes.STRING,
             isrequired:true
         }
