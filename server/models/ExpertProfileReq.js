@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         skills: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false
         },
         tools_requirement: {
